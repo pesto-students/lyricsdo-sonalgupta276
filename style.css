@@ -50,7 +50,7 @@ header {
   grid-template-areas: "";
 }
 @media only screen and (max-width: 600px){ 
-  /* //your code  */
+  
 }
 header::after {
   content: '';
