@@ -32,20 +32,11 @@ button:focus {
 }
 
 header {
-  /* background: url(assets/Screenshot\ 2020-09-24\ at\ 2.05.21\ AM.png) no-repeat;
-  background-size: cover;
-  background-position: left; */
   color: #fff;
-  /* display: flex;
-  flex-direction: column;
-  
-  justify-content: center; */
   display: grid;
   align-items: center;
   justify-content: center;
 	grid-gap: 10px 10px;
-  /* padding: 50px 0; */
-  /* position: relative; */
   padding: 100px;
   position: relative;
   grid-template-columns: 350px; 
