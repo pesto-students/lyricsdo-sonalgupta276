@@ -36,8 +36,8 @@ header {
   display: grid;
   align-items: center;
   justify-content: center;
-	grid-gap: 10px 10px;
-  padding: 100px;
+  grid-gap: 10px 10px;
+  padding: 60px 50px;
   position: relative;
   grid-template-columns: 350px; 
   grid-template-areas: "";
@@ -78,6 +78,7 @@ form {
   position: relative;
   width: 600px;
   max-width: 100%;
+  padding-left: 10px;
 }
 
 form input {
@@ -114,6 +115,7 @@ form input {
   color: #fff;
   font-size: 16px;
   padding: 15px 30px;
+  margin-right: 10px;
 }
 
 
@@ -131,7 +133,7 @@ form input {
 
 ul.songs {
   list-style-type: none;
-  padding: 0;
+  padding: 2px;
   display: flex;
 	flex-flow: column nowrap;
 	justify-content: center;
@@ -155,6 +157,7 @@ ul.songs li {
   margin: 30px auto;
   max-width: 100%;
   width: 500px;
+  padding-left: 10px;
 }
 
 .container h2 {
