@@ -5,7 +5,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="normalize.css" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <title>LyricsDo</title>
 </head>
 
@@ -14,34 +16,23 @@
         <h1>LyricsDo</h1>
 
         <form id="form">
-            <input type="text" id="search" placeholder="Enter artist or song name..." />
-            <button>Search</button>
+            <input type="text" id="search" class="search-song" autocomplete="off" autofocus="autofocus" placeholder="Type the song name..." />
+            <button class="search">Search</button>
+            
         </form>
-        <button id="clear">Clear</button>
+        <button id="clear" class="clear">Clear</button>
 
     </header>
 
-    <div id="back" style="display:none">
-        <button id="goBack">Go Back</button>
+   
+    <div id="back" style="display:none" class="container centered">
+        <button class="btn" id="goBack">Go Back</button>
     </div>
-
     <div id="songResults" class="container">
-        <p>Results will be displayed here</p>
-    </div>
-
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-
-        <!-- Modal content -->
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p id="lyrics">Some text in the Modal..</p>
-        </div>
-
+       
     </div>
 
     <div id="more" class="container centered"></div>
-
     <script src="scripts.js"></script>
 </body>
 

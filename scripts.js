@@ -5,47 +5,23 @@ const more = document.getElementById('more');
 const clear = document.getElementById('clear');
 const goBack = document.getElementById('goBack');
 const back = document.getElementById('back');
-const lyricsModal = document.getElementById('lyrics');
-
-// Get the modal
-const modal = document.getElementById("myModal");
-// // Get the button that opens the modal
-// var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-// btn.onclick = function() {
-//   modal.style.display = "block";
-// }
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-
 const apiURL = 'https://api.lyrics.ovh';
 
-
 function showSongResults(data) {
-    if (back.style.display === 'block') {
-        back.style.display = 'none';
-    }
-    songResults.innerHTML = `<ul class='songs'>
+  if (back.style.display === 'block') {
+    back.style.display = 'none';
+  }
+  if (data.total === 0) {
+    alert('Try entering a valid search term!');
+    return;
+  }
+  songResults.innerHTML = `<ul class='songs'>
     ${data.data
     .map(
       (item) => `<li>
-    <span><strong>${item.artist.name} - ${item.title}</strong></span>
+    <strong>   ${item.artist.name} - ${item.title}</strong>
     <button class='lyricsbutton' data-artist='${item.artist.name}' data-songtitle='${item.title}'> Show Lyrics </button>
-    </li>`,
+    </li>`
     )
     .join('')}
       </ul>`;
@@ -78,21 +54,25 @@ async function getLyrics(artist, songTitle) {
   const result = await fetch(`${apiURL}/v1/${artist}/${songTitle}`);
   const data = await result.json();
 
-  lyricsModal.innerHTML = '';
+  songResults.innerHTML = '';
 
   if (data.error) {
-    lyricsModal.innerHTML = data.error;
+    songResults.innerHTML = data.error;
   } else {
-    const lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, '<br>');
-
+    let lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, '<br>');
+    if (lyrics === '') {
+      const searchTerm = search.value.trim();
+      const youtubeLink = `https://www.youtube.com/results?search_query=${searchTerm}`;
+      lyrics = `Lyrics not found. You might like to listen on <a target='_blank' href='${youtubeLink}' link='#FF0000'><i class="fa fa-youtube-play" aria-hidden="true"></i> </a>instead!`;
+    }
     if (back.style.display === 'none') {
       back.style.display = 'block';
     }
-    lyricsModal.innerHTML = `
-              <h2><strong>${artist}</strong> - ${songTitle}</h2>
+    songResults.innerHTML = `
+              <h2><strong>${artist} - ${songTitle}</strong></h2>
               <span>${lyrics}</span>`;
   }
-//   more.innerHTML = '';
+  more.innerHTML = '';
 }
 
 async function fetchSong(inputQuery) {
@@ -116,7 +96,6 @@ songResults.addEventListener('click', (e) => {
   if (clickedElement.tagName === 'BUTTON') {
     const artist = clickedElement.getAttribute('data-artist');
     const songTitle = clickedElement.getAttribute('data-songtitle');
-    modal.style.display = "block";
     getLyrics(artist, songTitle);
   }
 });
@@ -125,13 +104,16 @@ function resetPage() {
   form.reset();
   songResults.innerHTML = '';
   more.innerHTML = '';
+  if (back.style.display === 'block') {
+    back.style.display = 'none';
+  }
 }
 
-clear.addEventListener('click', (e) => {
+clear.addEventListener('click', () => {
   resetPage();
 });
 
-goBack.addEventListener('click', (e) => {
+goBack.addEventListener('click', () => {
   const searchTerm = search.value.trim();
   fetchSong(searchTerm);
 });
